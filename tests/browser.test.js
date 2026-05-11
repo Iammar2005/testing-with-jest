@@ -34,3 +34,29 @@ describe('Clicking "Pusha till stacken"', () => {
         await alert.accept();
     });
 });
+
+test('Popping an item should update the displayed top of the stack', async () => {
+    await driver.navigate().refresh();
+
+    let push = await driver.findElement(By.id('push'));
+
+    await push.click();
+    let alert = await driver.switchTo().alert();
+    await alert.sendKeys("Bananer");
+    await alert.accept();
+
+    await push.click();
+    alert = await driver.switchTo().alert();
+    await alert.sendKeys("Äpplen");
+    await alert.accept();
+
+    let pop = await driver.findElement(By.id('pop'));
+    await pop.click();
+
+    alert = await driver.switchTo().alert();
+    expect(await alert.getText()).toEqual("Tog bort Äpplen");
+    await alert.accept();
+
+    let stack = await driver.findElement(By.id('top_of_stack')).getText();
+    expect(stack).toEqual("Bananer");
+});
