@@ -16,3 +16,13 @@ exports.pop = function () {
 exports.peek = function () {
     return _.last(stack);
 }
+
+// Tömmer stacken
+exports.clear = function () {
+    stack = [];
+};
+
+// Returnerar antal element i stacken
+exports.size = function () {
+    return stack.length;
+};
